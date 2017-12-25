@@ -13,7 +13,11 @@ import io.netty.handler.codec.socksx.v5.DefaultSocks5PasswordAuthRequest;
 import io.netty.handler.codec.socksx.v5.DefaultSocks5PasswordAuthResponse;
 import io.netty.handler.codec.socksx.v5.Socks5PasswordAuthResponse;
 import io.netty.handler.codec.socksx.v5.Socks5PasswordAuthStatus;
-
+/**
+ * 是使用用户名和密码的鉴权方式的协议，返回鉴权是否通过，会将消息解码为DefaultSocks5PasswordAuthRequest对象
+ * @author MapleRan
+ *
+ */
 public class Socks5PasswordAuthRequestHandler extends SimpleChannelInboundHandler<DefaultSocks5PasswordAuthRequest> {
 	
 	private static final Logger logger = LoggerFactory.getLogger(Socks5PasswordAuthRequestHandler.class);

@@ -12,7 +12,11 @@ import io.netty.handler.codec.socksx.v5.DefaultSocks5InitialRequest;
 import io.netty.handler.codec.socksx.v5.DefaultSocks5InitialResponse;
 import io.netty.handler.codec.socksx.v5.Socks5AuthMethod;
 import io.netty.handler.codec.socksx.v5.Socks5InitialResponse;
-
+/**
+ * 负责服务器和客户端协商鉴权方式，返回服务器端支持的鉴权方式，会将消息解码为DefaultSocks5InitialRequest对象
+ * @author MapleRan
+ *
+ */
 public class Socks5InitialRequestHandler extends SimpleChannelInboundHandler<DefaultSocks5InitialRequest> {
 
 	private static final Logger logger = LoggerFactory.getLogger(Socks5InitialRequestHandler.class);

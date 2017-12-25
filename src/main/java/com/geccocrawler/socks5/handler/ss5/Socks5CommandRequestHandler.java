@@ -21,7 +21,11 @@ import io.netty.handler.codec.socksx.v5.Socks5AddressType;
 import io.netty.handler.codec.socksx.v5.Socks5CommandResponse;
 import io.netty.handler.codec.socksx.v5.Socks5CommandStatus;
 import io.netty.handler.codec.socksx.v5.Socks5CommandType;
-
+/**
+ * 负责目标服务器的连接建立，返回建立是否成功，会将消息解码为DefaultSocks5CommandRequest对象
+ * @author MapleRan
+ *
+ */
 public class Socks5CommandRequestHandler extends SimpleChannelInboundHandler<DefaultSocks5CommandRequest>{
 	
 	private static final Logger logger = LoggerFactory.getLogger(Socks5CommandRequestHandler.class);
