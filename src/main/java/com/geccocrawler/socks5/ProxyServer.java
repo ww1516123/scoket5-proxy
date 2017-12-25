@@ -114,6 +114,7 @@ public class ProxyServer {
 					//channel超时处理
 					ch.pipeline().addLast(new IdleStateHandler(3, 30, 0));
 					ch.pipeline().addLast(new ProxyIdleHandler());
+					
 					//netty日志
 					if(logging) {
 						ch.pipeline().addLast(new LoggingHandler());

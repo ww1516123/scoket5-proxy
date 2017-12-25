@@ -3,7 +3,11 @@ package com.geccocrawler.socks5.handler;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.handler.timeout.IdleStateEvent;
-
+/**
+ * 代理超时处理
+ * @author MapleRan
+ *
+ */
 public class ProxyIdleHandler extends ChannelInboundHandlerAdapter {
 	
 	@Override
