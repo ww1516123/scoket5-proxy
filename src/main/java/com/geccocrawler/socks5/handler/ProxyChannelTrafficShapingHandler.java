@@ -4,7 +4,11 @@ import com.geccocrawler.socks5.log.ProxyFlowLog;
 
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.traffic.ChannelTrafficShapingHandler;
-
+/**
+ * 流量统计
+ * @author MapleRan
+ *
+ */
 public class ProxyChannelTrafficShapingHandler extends ChannelTrafficShapingHandler {
 	
 	public static final String PROXY_TRAFFIC = "ProxyChannelTrafficShapingHandler";
