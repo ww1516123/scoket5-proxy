@@ -13,7 +13,11 @@ import org.slf4j.LoggerFactory;
 import com.geccocrawler.socks5.handler.ProxyChannelTrafficShapingHandler;
 
 import io.netty.channel.ChannelHandlerContext;
-
+/**
+ * 代理自定义的日志
+ * @author MapleRan
+ *
+ */
 public class ProxyFlowLog4j implements ProxyFlowLog {
 	
 	private static final Logger logger = LoggerFactory.getLogger(ProxyFlowLog4j.class);
