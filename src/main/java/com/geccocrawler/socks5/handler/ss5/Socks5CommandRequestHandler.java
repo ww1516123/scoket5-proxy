@@ -32,7 +32,10 @@ public class Socks5CommandRequestHandler extends SimpleChannelInboundHandler<Def
 	
 	@Override
 	protected void channelRead0(final ChannelHandlerContext clientChannelContext, DefaultSocks5CommandRequest msg) throws Exception {
+		//clientChannelContext 当前请求上下文
+		//DefaultSocks5CommandRequest scoket5 请求包  需要代理的信息在此
 		logger.debug("目标服务器  : " + msg.type() + "," + msg.dstAddr() + "," + msg.dstPort());
+		
 		if(msg.type().equals(Socks5CommandType.CONNECT)) {
 			logger.trace("准备连接目标服务器");
 			EventLoopGroup bossGroup = new NioEventLoopGroup();
@@ -66,6 +69,7 @@ public class Socks5CommandRequestHandler extends SimpleChannelInboundHandler<Def
 				
 			});
 		} else {
+			//转发到下一个handler
 			clientChannelContext.fireChannelRead(msg);
 		}
 	}

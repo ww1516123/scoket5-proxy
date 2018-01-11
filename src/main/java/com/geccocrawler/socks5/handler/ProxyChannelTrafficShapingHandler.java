@@ -24,7 +24,11 @@ public class ProxyChannelTrafficShapingHandler extends ChannelTrafficShapingHand
 	public static ProxyChannelTrafficShapingHandler get(ChannelHandlerContext ctx) {
 		return (ProxyChannelTrafficShapingHandler)ctx.pipeline().get(PROXY_TRAFFIC);
 	}
-	
+	/**
+	 * 构造函数
+	 * @param checkInterval 间隔时间 单位毫秒 
+	 * @param proxyFlowLog 代理跟踪日志
+	 */
 	public ProxyChannelTrafficShapingHandler(long checkInterval, ProxyFlowLog proxyFlowLog) {
 		super(checkInterval);
 		this.proxyFlowLog = proxyFlowLog;

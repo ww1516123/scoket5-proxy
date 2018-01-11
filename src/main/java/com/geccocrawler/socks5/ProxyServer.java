@@ -95,7 +95,9 @@ public class ProxyServer {
 		if(passwordAuth == null) {
 			passwordAuth = new PropertiesPasswordAuth();
 		}
+		//请求处理组
 		EventLoopGroup boss = new NioEventLoopGroup(2);
+		//代理操作组
 		EventLoopGroup worker = new NioEventLoopGroup();
 		try {
 			ServerBootstrap bootstrap = new ServerBootstrap();
@@ -106,12 +108,12 @@ public class ProxyServer {
 			.childHandler(new ChannelInitializer<SocketChannel>() {
 				@Override
 				protected void initChannel(SocketChannel ch) throws Exception {
-					//流量统计
+					//流量统计 所有的流量 先进行统计
 					ch.pipeline().addLast(
 							ProxyChannelTrafficShapingHandler.PROXY_TRAFFIC, 
 							new ProxyChannelTrafficShapingHandler(3000, proxyFlowLog)
 							);
-					//channel超时处理
+					//channel超时处理  3表示向外发送 超时时间  30表示返回相应时间 30秒
 					ch.pipeline().addLast(new IdleStateHandler(3, 30, 0));
 					ch.pipeline().addLast(new ProxyIdleHandler());
 					
@@ -119,21 +121,23 @@ public class ProxyServer {
 					if(logging) {
 						ch.pipeline().addLast(new LoggingHandler());
 					}
+					
 					//Socks5MessagByteBuf
 					ch.pipeline().addLast(Socks5ServerEncoder.DEFAULT);
-					//sock5 init
+					//sock5 init socket5 标准解码器
 					ch.pipeline().addLast(new Socks5InitialRequestDecoder());
-					//sock5 init
+					//sock5 init sockt5识别
 					ch.pipeline().addLast(new Socks5InitialRequestHandler(ProxyServer.this));
+					//权限验证
 					if(isAuth()) {
 						//socks auth
 						ch.pipeline().addLast(new Socks5PasswordAuthRequestDecoder());
 						//socks auth
 						ch.pipeline().addLast(new Socks5PasswordAuthRequestHandler(getPasswordAuth()));
 					}
-					//socks connection
+					//socks connection socket 指令请求解码器
 					ch.pipeline().addLast(new Socks5CommandRequestDecoder());
-					//Socks connection
+					//Socks connection socket5 指令请求 处理
 					ch.pipeline().addLast(new Socks5CommandRequestHandler());
 				}
 			});

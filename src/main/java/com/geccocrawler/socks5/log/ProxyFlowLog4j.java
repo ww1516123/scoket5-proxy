@@ -23,11 +23,14 @@ public class ProxyFlowLog4j implements ProxyFlowLog {
 	private static final Logger logger = LoggerFactory.getLogger(ProxyFlowLog4j.class);
 	
 	public void log(ChannelHandlerContext ctx) {
+		//获取通道流量监控
 		ProxyChannelTrafficShapingHandler trafficShapingHandler = ProxyChannelTrafficShapingHandler.get(ctx);
+		
 		InetSocketAddress localAddress = (InetSocketAddress)ctx.channel().localAddress();
 		InetSocketAddress remoteAddress = (InetSocketAddress)ctx.channel().remoteAddress();
-		
+		//获取上传大小 --上传指向外发送的
 		long readByte = trafficShapingHandler.trafficCounter().cumulativeReadBytes();
+		//获取下载大小--下载指最终返回的
 		long writeByte = trafficShapingHandler.trafficCounter().cumulativeWrittenBytes();
 		
 		logger.info("{},{},{},{}:{},{}:{},{},{},{}", 
