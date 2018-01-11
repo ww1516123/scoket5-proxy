@@ -29,10 +29,14 @@ public class HttpProxyClient {
 
 		
 		OkHttpClient client = new OkHttpClient.Builder().proxy(proxyTest).build();
-		Request request = new Request.Builder().url("https://www.baidu.com").build();
-		Response response = client.newCall(request).execute();
-		System.out.println(response.code());
-		System.out.println(response.body().string());
+		for (int i = 0; i < 10; i++) {
+			Request request = new Request.Builder().url("http://fanyi.baidu.com/#zh/en/"+i).build();
+			Response response = client.newCall(request).execute();
+			System.out.println(response.code());
+			System.out.println(response.body().string());
+			
+			Thread.sleep(1000L);
+		}
 		
 		client.dispatcher().executorService().shutdown();
 		client.connectionPool().evictAll();
